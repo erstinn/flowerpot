@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Can ♡ Jill - Our Love Among the Stars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      body {
+        background: linear-gradient(to bottom, #070720, #1a1b40);
+        overflow: hidden;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        font-family: 'Press Start 2P', cursive;
+        position: relative;
+      }
+      #startScreen {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: black;
+        color: white;
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 50;
+      }
+      .blink {
+        animation: blink 1s infinite;
+      }
+      @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+      }
+      .glow-text {
+        text-shadow: 0 0 5px #ff8bd7, 0 0 10px #ff8bd7, 0 0 15px #ff8bd7;
+      }
+      .fade-in-text {
+        opacity: 0;
+        animation: fadeIn 3s ease forwards;
+        animation-delay: 1s;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .glow-blue {
+        text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6, 0 0 20px #add8e6;
+      }
+      .pulse-heart {
+        display: inline-block;
+        position: relative;
+        animation: pulse 1.5s infinite;
+        transform-origin: center;
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+      }
+      .pulse-heart .sparkle {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        font-size: 14px;
+        opacity: 0;
+        animation: sparkleFade 3s infinite;
+      }
+      @keyframes sparkleFade {
+        0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+        50% { opacity: 1; transform: scale(1.2) rotate(45deg); }
+        100% { opacity: 0; transform: scale(0.5) rotate(90deg); }
+      }
+
+      .star, .sparkle, .shooting-star, .floating-heart, .lantern, .nebula {
+        position: absolute;
+      }
+      .star {
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: twinkle 2s infinite ease-in-out;
+      }
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.8; }
+        50% { opacity: 0.2; }
+      }
+      .sparkle {
+        width: 4px;
+        height: 4px;
+        background: rgba(255,255,255,0.5);
+        border-radius: 50%;
+        animation: floatSparkle 20s linear infinite;
+      }
+      @keyframes floatSparkle {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-100vh); }
+      }
+      .meteor {
+        position: absolute;
+        width: 2px;
+        height: 80px;
+        background: linear-gradient(white, transparent);
+        opacity: 0.6;
+        transform: rotate(45deg);
+        animation: fall 2s linear forwards;
+      }
+      @keyframes fall {
+        0% { transform: translate(0, 0) rotate(45deg); opacity: 1; }
+        100% { transform: translate(200px, 200px) rotate(45deg); opacity: 0; }
+      }
+
+      .sparkle-burst {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        animation: sparkleBurstMove 1.2s forwards;
+        pointer-events: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.6);
+      }
+      @keyframes sparkleBurstMove {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(1) rotate(0deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--x), var(--y)) scale(0.5) rotate(360deg);
+        }
+      }
+
+      #stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .starry {
+        background: radial-gradient(circle at center, rgba(255,255,255,0.1), rgba(0,0,0,1));
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        animation: starryAnimation 20s infinite linear;
+      }
+
+      @keyframes starryAnimation {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 100% 100%; }
+      }
+
+      /* Lock animation */
+      @keyframes lockWiggle {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(-10deg); }
+        50% { transform: rotate(10deg); }
+        75% { transform: rotate(-5deg); }
+        100% { transform: rotate(0deg); }
+      }
+
+      @keyframes lockGlow {
+        0% { text-shadow: 0 0 0px #fff; }
+        50% { text-shadow: 0 0 12px #ff8bd7, 0 0 24px #ffe066; }
+        100% { text-shadow: 0 0 0px #fff; }
+      }
+
+      .lock-animate {
+        animation: lockWiggle 0.5s ease, lockGlow 1.2s ease;
+      }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center text-center text-white relative overflow-hidden">
+
+<!-- Start Screen -->
+<div id="startScreen">
+    <h1 class="text-4xl mb-4 glow-text">
+        Can <span class="pulse-heart">♡<span class="sparkle">✨</span></span> Jill
+    </h1>
+    <p class="text-base mb-8 tracking-wider glow-text fade-in-text">Happy Anniversary ♡</p>
+    <div class="blink">Press Any Key to Start</div>
+</div>
+
+<!-- Nebula -->
+<div class="nebula" style="top: 20%; left: 10%; display: none;"></div>
+<div class="nebula" style="top: 60%; left: 50%; display: none;"></div>
+<div class="nebula" style="top: 40%; left: 80%; display: none;"></div>
+
+<!-- Main Content -->
+<div id="mainContent" class="bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-lg z-10" style="display: none;">
+    <h2 class="text-3xl mb-4 glow-text">
+        Can <span class="pulse-heart">♡<span class="sparkle">✨</span></span> Jill
+    </h2>
+    <p class="text-base mb-8 tracking-wider glow-text fade-in-text">Happy Anniversary ♡</p>
+    <h1 class="text-3xl font-bold mb-6 glow-blue">Our Love Among the Stars</h1>
+    <p class="text-base mb-6">
+        Our hearts were written in the galaxy,<br>
+        and forever they'll find each other.
+    </p>
+
+    <button onclick="sendKiss()" class="mt-4 bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-6 rounded-full transition text-base">
+        Send a Kiss
+    </button>
+
+    <button onclick="triggerMeteorShower()" class="mt-4 ml-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-full transition text-base">
+        Meteor Shower!
+    </button>
+
+    <!-- Secret Padlock -->
+    <div id="secretBox" class="mt-6 text-4xl cursor-pointer transition transform hover:scale-110">
+        <span id="lockIcon">🔒</span>
+    </div>
+
+    <div id="secretText" class="hidden mt-6 p-6 bg-white bg-opacity-20 backdrop-blur-md rounded-xl text-base text-pink-100 leading-relaxed">
+        Happy Anniversary dudumahal, the universe conspired to help us find each other and I'm lucky to love such a great and kind man. I will always fight for our love ❤️ I love you
+    </div>
+
+    <div id="secretMessage1" class="mt-6 hidden">
+        <p class="text-pink-200 text-base mt-4 animate-pulse">
+            P.S. I love you more than all the stars combined.
+        </p>
+    </div>
+
+    <div id="secretMessage2" class="mt-6 hidden">
+        <p class="text-pink-300 text-base mt-4 animate-bounce">
+            You are my galaxy, my dream, my forever.
+        </p>
+    </div>
+
+    <div id="kissContainer" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
+</div>
+
+<!-- Music -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/01/audio_64b36f0b3b.mp3" type="audio/mp3">
+</audio>
+
+<!-- Stars -->
+<div id="stars">
+    <div class="starry"></div>
+</div>
+
+<!-- Scripts -->
+<script>
+  let clickCount = 0;
+
+  function sendKiss() {
+    const kissContainer = document.getElementById('kissContainer');
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.innerHTML = '💖';
+    kissContainer.appendChild(heart);
+    setTimeout(() => kissContainer.removeChild(heart), 2000);
+
+    clickCount++;
+    if (clickCount === 1) {
+      document.getElementById('secretMessage1').classList.remove('hidden');
+    } else if (clickCount === 2) {
+      document.getElementById('secretMessage2').classList.remove('hidden');
+    }
+  }
+
+  function triggerMeteorShower() {
+    const meteorCount = 10 + Math.floor(Math.random() * 10);
+    for (let i = 0; i < meteorCount; i++) {
+      setTimeout(() => {
+        const meteor = document.createElement('div');
+        meteor.classList.add('meteor');
+        meteor.style.top = Math.random() * window.innerHeight + 'px';
+        meteor.style.left = Math.random() * window.innerWidth + 'px';
+        document.body.appendChild(meteor);
+        setTimeout(() => meteor.remove(), 2000);
+      }, i * 100);
+    }
+  }
+
+  window.addEventListener('keydown', () => {
+    document.getElementById('startScreen').style.display = 'none';
+    document.querySelectorAll('.nebula').forEach(el => el.style.display = 'block');
+    document.getElementById('mainContent').style.display = 'block';
+
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0;
+    bgMusic.play();
+    let volume = 0;
+    const fadeAudio = setInterval(() => {
+      if (volume < 1) {
+        volume += 0.01;
+        bgMusic.volume = volume;
+      } else {
+        clearInterval(fadeAudio);
+      }
+    }, 100);
+  }, { once: true });
+
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.left = Math.random() * 100 + 'vw';
+    starsContainer.appendChild(star);
+  }
+  for (let i = 0; i < 30; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.style.top = Math.random() * 100 + 'vh';
+    sparkle.style.left = Math.random() * 100 + 'vw';
+    sparkle.style.animationDuration = (15 + Math.random() * 10) + 's';
+    starsContainer.appendChild(sparkle);
+  }
+
+  document.getElementById('secretBox').addEventListener('click', function(e) {
+    const lockIcon = document.getElementById('lockIcon');
+    const secretText = document.getElementById('secretText');
+    lockIcon.classList.add('lock-animate');
+
+    setTimeout(() => {
+      lockIcon.textContent = '🔓';
+      secretText.classList.remove('hidden');
+      secretText.classList.add('fade-in');
+      this.style.pointerEvents = 'none';
+    }, 500);
+
+    const colors = ['#ffd1dc', '#ffe066', '#ffffff'];
+    for (let i = 0; i < 20; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle-burst');
+      sparkle.style.left = e.clientX + 'px';
+      sparkle.style.top = e.clientY + 'px';
+      sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = 100 + Math.random() * 50;
+      sparkle.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+      sparkle.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1200);
+    }
+  });
+</script>
+
+</body>
+</html>
